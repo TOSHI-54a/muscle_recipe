@@ -7,8 +7,14 @@ ja:
             name:
               blank: "名前を入力してください"
             email:
+              blank: "メールアドレスを入力してください"
               taken: "メールアドレスはすでに存在します"
+              invalid: "有効なメールアドレスを入力してください"
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+
   errors:
     messages:
       blank: "入力してください"
       taken: "すでに存在します"
+      invalid: "無効です"
