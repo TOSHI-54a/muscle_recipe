@@ -26,6 +26,21 @@
     <%= form.text_field :crypted_password, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user.errors[:crypted_password].none?, "border-red-400 focus:outline-red-600": user.errors[:crypted_password].any?}] %>
   </div>
 
+  <div class="my-5">
+    <%= form.label :age, "年齢" %>
+    <%= form.number_field :age, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :height, "身長 (cm)" %>
+    <%= form.number_field :height, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :weight, "体重 (kg)" %>
+    <%= form.number_field :weight, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
   <div class="inline">
     <%= form.submit "ユーザー登録", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>
