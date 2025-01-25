@@ -1,8 +1,9 @@
-import { Application } from "@hotwired/stimulus";
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading";
+import { application } from "./application";
 
-// Stimulus の初期化
-const application = Application.start();
+// 各コントローラーを手動でインポート
+import HelloController from "./hello_controller";
 
-// コントローラーを自動登録
-eagerLoadControllersFrom("controllers", application);
+// Stimulusにコントローラーを登録
+application.register("hello", HelloController);
+
+console.log("Stimulus controllers have been registered.");

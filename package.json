@@ -4,13 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds",
-    "build:watch": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --watch",
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --platform=browser --format=esm",
+  "build:watch": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --watch --platform=browser --format=esm",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.12",
+    "@hotwired/turbo": "^7.3.0",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.24.2",
     "postcss": "^8.5.1",
