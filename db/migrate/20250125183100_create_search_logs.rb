@@ -5,7 +5,7 @@ class CreateSearchLogs < ActiveRecord::Migration[7.2]
       t.string :session_id
       t.string :ip_address
       t.datetime :search_time
-      
+
       t.timestamps
     end
   end
