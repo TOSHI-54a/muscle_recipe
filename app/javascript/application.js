@@ -1,3 +1,3 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "./controllers"
+import "@hotwired/turbo"; // Turbo を読み込む
+import "./controllers"; // Stimulus コントローラーを読み込む

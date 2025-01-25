@@ -3,7 +3,7 @@
   <head>
     <title><%= content_for(:title) || "Muscle Recipe" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,15 +13,17 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
+    <script type="module" src="/assets/builds/application.js"></script>
+
   </head>
 
   <body class="bg-blue-100">
     <div class="text-center text-xl font-bold text-blue-500">
       TailwindCSSが適用されています！
     </div>
+      <%= render 'shared/header' %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>

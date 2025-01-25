@@ -1,8 +1,14 @@
-import { Application } from "@hotwired/stimulus";
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading";
+import { application } from "./application";
 
-// Stimulus の初期化
-const application = Application.start();
+// Vite または esbuild 用に glob を使用してすべてのコントローラーを登録
+const controllers = import.meta.glob("./**/*_controller.js");
 
-// コントローラーを自動登録
-eagerLoadControllersFrom("controllers", application);
+for (const path in controllers) {
+  controllers[path]().then((module) => {
+    const controllerName = path
+      .replace("./", "")
+      .replace("_controller.js", "")
+      .replace(/\//g, "--");
+    application.register(controllerName, module.default);
+  });
+}
