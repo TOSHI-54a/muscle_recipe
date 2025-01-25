@@ -1,14 +1,9 @@
 import { application } from "./application";
 
-// Vite または esbuild 用に glob を使用してすべてのコントローラーを登録
-const controllers = import.meta.glob("./**/*_controller.js");
+// 各コントローラーを手動でインポート
+import HelloController from "./hello_controller";
 
-for (const path in controllers) {
-  controllers[path]().then((module) => {
-    const controllerName = path
-      .replace("./", "")
-      .replace("_controller.js", "")
-      .replace(/\//g, "--");
-    application.register(controllerName, module.default);
-  });
-}
+// Stimulusにコントローラーを登録
+application.register("hello", HelloController);
+
+console.log("Stimulus controllers have been registered.");
