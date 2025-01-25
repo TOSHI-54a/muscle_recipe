@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
     expect(user).not_to be_valid
     expect(user.errors[:name]).to include("名前を入力してください")
   end
-  
+
   it "メールアドレスが入力されているか" do
     user = build(:user, email: nil)
     expect(user).not_to be_valid
@@ -30,5 +30,4 @@ RSpec.describe User, type: :model do
     expect(user).not_to be_valid
     expect(user.errors[:email]).to include("有効なメールアドレスを入力してください")
   end
-
 end
