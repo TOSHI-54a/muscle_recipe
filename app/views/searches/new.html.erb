@@ -1,0 +1,85 @@
+<h1>レシピ検索フォーム</h1>
+
+<%= form_with url: searches_path, method: :post, local: true do |f| %>
+  <fieldset>
+    <legend>身体情報</legend>
+    <%= f.fields_for :body_info do |bf| %>
+      <div>
+        <%= bf.label :age, "年齢" %>
+        <%= bf.number_field :age, min: 0 %>
+      </div>
+      <div>
+        <%= bf.label :gender, "性別" %>
+        <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true %>
+      </div>
+      <div>
+        <%= bf.label :height, "身長 (cm)" %>
+        <%= bf.number_field :height, min: 0 %>
+      </div>
+      <div>
+        <%= bf.label :weight, "体重 (kg)" %>
+        <%= bf.number_field :weight, min: 0 %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend>料理の複雑度</legend>
+    <div>
+      <%= f.label :recipe_complexity, "料理の複雑度" %>
+      <%= f.select :recipe_complexity, [["簡単な料理", "簡単な料理"], ["指定なし", "指定なし"], ["手の込んだ料理", "手の込んだ料理"]], include_blank: true %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>具材情報</legend>
+    <%= f.fields_for :ingredients do |bf| %>
+      <div>
+        <%= bf.label :ingredients_use, "使用したい具材 (カンマ区切り)" %>
+        <%= bf.text_field :use %>
+      </div>
+      <div>
+        <%= bf.label :ingredients_avoid, "避けたい具材 (カンマ区切り)" %>
+        <%= bf.text_field :avoid %>
+      </div>
+    <div>
+      <%= f.fields_for :available do |af| %>
+        <div>
+          <%= af.label :name, "利用可能な具材の名前" %>
+          <%= af.text_field :name %>
+        </div>
+        <div>
+          <%= af.label :amount, "量" %>
+          <%= af.text_field :amount %>
+        </div>
+      <% end %>
+    </div>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend>調味料</legend>
+    <div>
+      <%= f.label :seasonings, "調味料の指定" %>
+      <%= f.select :seasonings, [["基本的な調味料", "基本的な調味料"], ["凝った調味料", "凝った調味料"]], include_blank: true %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>要望</legend>
+    <%= f.fields_for :preferences do |bf| %>
+      <div>
+        <%= bf.label :goal, "料理の目的" %>
+        <%= bf.text_field :goal %>
+      </div>
+      <div>
+        <%= bf.label :calorie_and_pfc, "カロリーとPFC情報を含める" %>
+        <%= bf.check_box :calorie_and_pfc %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <div>
+    <%= f.submit "レシピを検索する" %>
+  </div>
+<% end %>
