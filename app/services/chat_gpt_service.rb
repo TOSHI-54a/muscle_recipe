@@ -1,7 +1,6 @@
-require 'httparty'
+require "httparty"
 
 class ChatGptService
-
     API_URL = "https://api.openai.com/v1/chat/completions"
 
     def initialize(api_key = ENV["CHATGPT_API_KEY"])
@@ -28,11 +27,11 @@ class ChatGptService
 
     def request_body(prompt)
         {
-            model: 'gpt-3.5-turbo',
+            model: "gpt-3.5-turbo",
             prompt: prompt,
             messages: [
-                { role: 'system', content: 'You are a professional fitness food advisor.You come up with healthy and tasty recipes based on the requirements provided by the user.'},
-                { role: 'user', content: generate_prompt(params) }
+                { role: "system", content: "You are a professional fitness food advisor.You come up with healthy and tasty recipes based on the requirements provided by the user." },
+                { role: "user", content: generate_prompt(params) }
             ],
             max_tokens: 150,
             temperature: 0.3
@@ -55,11 +54,11 @@ class ChatGptService
            request_payload[:ingredients][:avoid].blank? &&
            request_payload[:preferences][:goal].blank? &&
            request_payload[:seasonings].blank?
-      
+
           # デフォルトプロンプト
           return "ヘルシーで手軽な料理を提案してください。"
         end
-      
+
         # 条件が入力されている場合のプロンプト生成
         <<~PROMPT
           以下の条件に合うレシピを提案してください：
@@ -73,4 +72,5 @@ class ChatGptService
           ・要望：#{request_payload[:preferences][:goal] || "指定なし"}
           ・調味料の指定：#{request_payload[:seasonings] || "指定なし"}
         PROMPT
-      end
+    end
+end
