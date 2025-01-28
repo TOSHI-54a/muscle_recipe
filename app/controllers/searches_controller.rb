@@ -4,6 +4,7 @@ class SearchesController < ApplicationController
 
   def new
     @search_recipes = SearchRecipe.new
+    @user = current_user
   end
 
   def create

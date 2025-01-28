@@ -18,3 +18,35 @@ ja:
       blank: "入力してください"
       taken: "すでに存在します"
       invalid: "無効です"
+
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "すでにログアウトしています。"
+
+    passwords:
+      send_instructions: "パスワード再設定の案内を送信しました。"
+      updated: "パスワードが更新されました。"
+      updated_not_active: "パスワードが更新されましたが、アカウントはまだ有効化されていません。"
+
+    confirmations:
+      send_instructions: "認証メールを送信しました。"
+      confirmed: "アカウントの認証が完了しました。"
+
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      signed_up_but_unconfirmed: "アカウント登録が完了しました。認証メールを確認してください。"
+      signed_up_but_inactive: "アカウント登録が完了しましたが、有効化されていません。"
+      updated: "アカウント情報が更新されました。"
+      destroyed: "アカウントを削除しました。"
+
+    failure:
+      unauthenticated: "ログインが必要です。"
+      unconfirmed: "アカウントの認証が必要です。"
+      locked: "アカウントがロックされています。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
+      inactive: "アカウントが無効です。"
+      already_authenticated: "すでにログインしています。"
