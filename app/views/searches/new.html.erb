@@ -3,10 +3,10 @@
 <%= form_with url: searches_path, model: current_user, method: :post, local: true do |f| %>
   <fieldset>
     <legend>身体情報</legend>
-    <%= f.fields_for :body_info do |bf| %>
+    <%= f.fields_for :body_info, current_user do |bf| %>
       <div>
         <%= bf.label :age, "年齢" %>
-        <%= bf.number_field :age, min: 0, placeholder: "aaa" %>
+        <%= bf.number_field :age, min: 0, value: current_user.age %>
       </div>
       <div>
         <%= bf.label :gender, "性別" %>
