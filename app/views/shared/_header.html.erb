@@ -40,6 +40,8 @@
           class="block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400"
           >Contact</a
         >
+        <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, data: { turbo: false, confirm: "本当にログアウトしますか？" }, class: 'nav-link' %>
+        <%= button_to 'sign_id', new_user_session_path %>
       </div>
     </div>
   </nav>
