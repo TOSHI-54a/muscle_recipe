@@ -30,4 +30,14 @@ RSpec.describe User, type: :model do
     expect(user).not_to be_valid
     expect(user.errors[:email]).to include("有効なメールアドレスを入力してください")
   end
+
+  it "性別が有効な値であること" do
+    user = User.new(name: "Test User", email: "test@example.com", password: "password", gender: "male")
+    expect(user).to be_valid
+  end
+
+  it "性別が無効な値である場合、無効であること" do
+    user = User.new(name: "Test User", email: "test@example.com", password: "password", gender: "invalid")
+    expect(user).not_to be_valid
+  end
 end
