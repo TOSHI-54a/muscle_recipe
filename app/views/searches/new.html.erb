@@ -1,12 +1,12 @@
 <h1>レシピ検索フォーム</h1>
 
-<%= form_with url: searches_path, method: :post, local: true do |f| %>
+<%= form_with url: searches_path, model: current_user, method: :post, local: true do |f| %>
   <fieldset>
     <legend>身体情報</legend>
     <%= f.fields_for :body_info do |bf| %>
       <div>
         <%= bf.label :age, "年齢" %>
-        <%= bf.number_field :age, min: 0 %>
+        <%= bf.number_field :age, min: 0, placeholder: "aaa" %>
       </div>
       <div>
         <%= bf.label :gender, "性別" %>
