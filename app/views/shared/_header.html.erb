@@ -1,7 +1,9 @@
 <header>
   <nav class="w-full bg-green-50">
     <div class="flex justify-between bg-blue-200 max-w-5xl mx-auto">
-      <div class="bg-red-600">Logo</div>
+      <div class="bg-red-600">
+        <%= link_to 'Logo', root_path %>
+      </div>
       <div class="bg-indigo-200">
       <!-- Mobile menu button -->
       <div class="flex lg:hidden">
@@ -20,6 +22,8 @@
       </div>
       <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
       <div class="hidden -mx-4 lg:flex lg:items-center">
+        <%= link_to 'AIレシピ検索', new_search_path, class: 'block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400' %>
+        <%= link_to '私のレシピ', '#', class: 'block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400' %>
         <a
           href="#"
           class="block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400"
