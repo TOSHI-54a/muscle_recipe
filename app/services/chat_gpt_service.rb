@@ -1,4 +1,5 @@
 require "httparty"
+require "dotenv/load"
 
 class ChatGptService
     API_URL = "https://api.openai.com/v1/chat/completions"
@@ -8,10 +9,14 @@ class ChatGptService
     end
 
     def fetch_recipe(prompt)
-        response = HTTPary.post(
+        request = request_body(prompt)
+        Rails.logger.debug "ChatGPT API Request Model: #{request[:model]}"
+        Rails.logger.debug "ChatGPT API Request Body (Before JSON.dump): #{request.inspect}"
+        Rails.logger.debug "ChatGPT API Request Body (After JSON.dump): #{JSON.dump(request)}"
+        response = HTTParty.post(
             API_URL,
             headers: request_headers,
-            body: request_body(prompt).to_json
+            body: JSON.dump(request)
         )
         parse_response(response)
     end
@@ -21,17 +26,16 @@ class ChatGptService
     def request_headers
         {
             "Authorization" => "Bearer #{@api_key}",
-            "Content_Type" => "application/json"
+            "Content-Type" => "application/json"
         }
     end
 
     def request_body(prompt)
         {
             model: "gpt-3.5-turbo",
-            prompt: prompt,
             messages: [
                 { role: "system", content: "You are a professional fitness food advisor.You come up with healthy and tasty recipes based on the requirements provided by the user." },
-                { role: "user", content: generate_prompt(params) }
+                { role: "user", content: generate_prompt(prompt) }
             ],
             max_tokens: 150,
             temperature: 0.3
@@ -40,10 +44,37 @@ class ChatGptService
 
     def parse_response(response)
         if response.success?
-            JSON.parse(response.body)["choices"].first["text"].strip
+          parsed_data = JSON.parse(response.body)
+      
+          # 統一されたフォーマットのレスポンスを作成
+          recipe_data = parsed_data["choices"].first["message"]["content"].strip
+          format_recipe_response(recipe_data)
         else
-            raise "ChatGPT API Error: #{response.body}"
+          raise "ChatGPT API Error: #{response.body}"
         end
+    end
+
+    def format_recipe_response(recipe_text)
+        recipe_lines = recipe_text.split("\n").reject(&:blank?)
+        
+        {
+          title: recipe_lines[0],  # 最初の行をタイトルとする
+          description: recipe_lines[1],  # 次の行を説明文
+          ingredients: extract_ingredients(recipe_lines),  # 材料
+          steps: extract_steps(recipe_lines)  # 作り方
+        }
+    end
+
+    def extract_ingredients(lines)
+        start_index = lines.index { |l| l.include?("材料") } || 0
+        end_index = lines.index { |l| l.include?("作り方") } || lines.size
+        
+        lines[start_index + 1...end_index].map(&:strip)
+    end
+
+    def extract_steps(lines)
+        start_index = lines.index { |l| l.include?("作り方") } || lines.size
+        lines[start_index + 1..].map(&:strip)
     end
 
     def generate_prompt(request_payload)
@@ -67,8 +98,8 @@ class ChatGptService
           ・身長：#{request_payload[:body_info][:height] || "指定なし"}cm
           ・体重：#{request_payload[:body_info][:weight] || "指定なし"}kg
           ・料理の複雑度：#{request_payload[:recipe_complexity] || "指定なし"}
-          ・使用したい具材：#{request_payload[:ingredients][:use]&.join(", ") || "指定なし"}
-          ・避けたい具材：#{request_payload[:ingredients][:avoid]&.join(", ") || "指定なし"}
+          ・使用したい具材：#{Array(request_payload.dig(:ingredients, :use)).reject(&:blank?).join(", ") || "指定なし"}
+          ・避けたい具材：#{Array(request_payload.dig(:ingredients, :avoid)).reject(&:blank?).join(", ") || "指定なし"}
           ・要望：#{request_payload[:preferences][:goal] || "指定なし"}
           ・調味料の指定：#{request_payload[:seasonings] || "指定なし"}
         PROMPT
