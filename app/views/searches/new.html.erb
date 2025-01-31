@@ -1,6 +1,6 @@
 <h1>レシピ検索フォーム</h1>
 
-<%= form_with url: searches_path, model: current_user, method: :post, local: true do |f| %>
+<%= form_with url: searches_path, model: current_user, method: :post, local: true, data: { turbo: false } do |f| %>
   <fieldset>
     <legend>身体情報</legend>
     <%= f.fields_for :body_info, current_user do |bf| %>
@@ -10,15 +10,15 @@
       </div>
       <div>
         <%= bf.label :gender, "性別" %>
-        <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true %>
+        <%= bf.select :gender, [["男性", "male"], ["女性", "female"]], include_blank: true, selected: current_user.gender %>
       </div>
       <div>
         <%= bf.label :height, "身長 (cm)" %>
-        <%= bf.number_field :height, min: 0 %>
+        <%= bf.number_field :height, min: 0, value: current_user.height %>
       </div>
       <div>
         <%= bf.label :weight, "体重 (kg)" %>
-        <%= bf.number_field :weight, min: 0 %>
+        <%= bf.number_field :weight, min: 0, value: current_user.weight %>
       </div>
     <% end %>
   </fieldset>
@@ -33,28 +33,22 @@
 
   <fieldset>
     <legend>具材情報</legend>
-    <%= f.fields_for :ingredients do |bf| %>
-      <div>
-        <%= bf.label :ingredients_use, "使用したい具材 (カンマ区切り)" %>
-        <%= bf.text_field :use %>
-      </div>
-      <div>
-        <%= bf.label :ingredients_avoid, "避けたい具材 (カンマ区切り)" %>
-        <%= bf.text_field :avoid %>
-      </div>
     <div>
-      <%= f.fields_for :available do |af| %>
-        <div>
-          <%= af.label :name, "利用可能な具材の名前" %>
-          <%= af.text_field :name %>
-        </div>
-        <div>
-          <%= af.label :amount, "量" %>
-          <%= af.text_field :amount %>
-        </div>
-      <% end %>
+      <%= f.label :ingredients_use, "使用したい具材 (カンマ区切り)" %>
+      <%= f.text_field :ingredients_use, name: "user[ingredients][use]" %>
     </div>
-    <% end %>
+    <div>
+      <%= f.label :ingredients_avoid, "避けたい具材 (カンマ区切り)" %>
+      <%= f.text_field :ingredients_avoid, name: "user[ingredients][avoid]" %>
+    </div>
+    <div>
+      <%= f.label :available_name, "利用可能な具材の名前" %>
+      <%= f.text_field :available_name, name: "user[available][name]" %>
+    </div>
+    <div>
+      <%= f.label :available_amount, "量" %>
+      <%= f.text_field :available_amount, name: "user[available][amount]" %>
+    </div>
   </fieldset>
 
   <fieldset>
@@ -67,16 +61,14 @@
 
   <fieldset>
     <legend>要望</legend>
-    <%= f.fields_for :preferences do |bf| %>
-      <div>
-        <%= bf.label :goal, "料理の目的" %>
-        <%= bf.text_field :goal %>
-      </div>
-      <div>
-        <%= bf.label :calorie_and_pfc, "カロリーとPFC情報を含める" %>
-        <%= bf.check_box :calorie_and_pfc %>
-      </div>
-    <% end %>
+    <div>
+      <%= f.label :preferences_goal, "料理の目的" %>
+      <%= f.text_field :preferences_goal, name: "user[preferences][goal]" %>
+    </div>
+    <div>
+      <%= f.label :preferences_calorie_and_pfc, "カロリーとPFC情報を含める" %>
+      <%= f.check_box :preferences_calorie_and_pfc, name: "user[preferences][calorie_and_pfc]" %>
+    </div>
   </fieldset>
 
   <div>
