@@ -1,16 +1,8 @@
 <div class='col-md-10 col-lg-8 mx-auto'>
   <h1>おすすめの旅行先</h1>
-  <% if @recommendations.present? %>
-    <ul>
-      <% @recommendations.each do |recommendation| %>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title"><%= recommendation[:city] %></h5>
-              <p class="card-text"><%= recommendation[:description] %></p>
-            </div>
-        </div>
-      <% end %>
-    </ul>
+  <% if @recommendation.present? %>
+    <p><%=@recommendation[:recipe][:title]%></p>
+
   <% else %>
     <p>No recommendations available.</p>
   <% end %>

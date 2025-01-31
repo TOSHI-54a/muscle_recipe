@@ -11,10 +11,10 @@ class SearchesController < ApplicationController
   end
 
   def create
-    Rails.logger.debug "Received params: #{params.inspect}"
-  
+    Rails.logger.debug "Received !params: #{params.inspect}"
+
     prompt = recipe_params
-    Rails.logger.debug "Filtered params: #{prompt.inspect}"
+    Rails.logger.debug "Filtered !params: #{prompt.inspect}"
 
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
     Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
@@ -25,7 +25,9 @@ class SearchesController < ApplicationController
       response_data: recipe_response
     )
 
-    @recommendation = [recipe_response]
+    Rails.logger.debug "れすぽお:#{recipe_response}"
+
+    @recommendation = recipe_response
     render :index
     # render json: { recipe: recipe_response }, status: ok
   rescue => e
@@ -57,10 +59,10 @@ class SearchesController < ApplicationController
     params.require(:user).permit(
       :recipe_complexity,
       :seasonings,
-      body_info: [:age, :gender, :height, :weight],
-      ingredients: [:use, :avoid],  # 配列ではなく文字列として受け取る
-      available: [:name, :amount],  # available を ingredients から独立
-      preferences: [:goal, :calorie_and_pfc]
+      body_info: [ :age, :gender, :height, :weight ],
+      ingredients: [ :use, :avoid ],  # 配列ではなく文字列として受け取る
+      available: [ :name, :amount ],  # available を ingredients から独立
+      preferences: [ :goal, :calorie_and_pfc ]
     ).to_h
   end
 end
