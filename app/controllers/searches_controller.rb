@@ -7,6 +7,8 @@ class SearchesController < ApplicationController
     @user = current_user
   end
 
+  def show; end
+
   def index
   end
 
@@ -36,6 +38,10 @@ class SearchesController < ApplicationController
     flash[:error] = 'レシピの取得に失敗しました: #{e.message}'
     render :new, status: :unprocessable_entity
     # render json: { error: e.message }, status: :internal_server_error
+  end
+
+  def saved
+    @saved_recipes = current_user.search_recipes.order(created_at: :desc)
   end
 
   private
