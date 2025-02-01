@@ -1,3 +1,25 @@
 <h1>レシピ詳細:<%= @search_recipe.title %></h1>
-<p><%= @search_recipe.description %></p>
+<% @saved_recipes.each do |recipe| %>
+    <% if recipe.response_data.present? && recipe.response_data["recipe"].present? %>
+      <li>
+        <p><strong>始まり</strong></p>
+        <h1><strong><%= recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h1>
+        <p>説明文：<%= recipe.response_data["recipe"]["description"] || "説明なし" %></p>
+        <p><strong>材料:</strong></p>
+        <ul>
+          <% recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
+            <li><%= ingredient %></li>
+          <% end %>
+        </ul>
+        <p><strong>作り方:</strong></p>
+        <ol>
+          <% recipe.response_data["recipe"]["steps"]&.each do |step| %>
+            <li><%= step %></li>
+          <% end %>
+        </ol>
+      </li>
+    <% else %>
+      <li>レシピデータがありません</li>
+    <% end %>
+  <% end %>
 
