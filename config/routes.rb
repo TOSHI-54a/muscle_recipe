@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get "search/create"
   devise_for :users, skip: [ :registrations ]
   resources :users
-  resources :searches, only: %i[new create]
+  resources :searches, only: %i[new create index show] do
+    collection do
+      get :saved
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

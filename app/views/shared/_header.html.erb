@@ -23,6 +23,7 @@
       <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
       <div class="hidden -mx-4 lg:flex lg:items-center">
         <%= link_to 'AIレシピ検索', new_search_path, class: 'block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400' %>
+        <%= link_to '私のレシピ', saved_searches_path, class: 'block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400' %>
         <%= link_to '私のレシピ', '#', class: 'block mx-4 mt-2 text-sm text-gray-700 capitalize lg:mt-0 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400' %>
         <a
           href="#"
@@ -45,7 +46,11 @@
           >Contact</a
         >
         <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, data: { turbo: false, confirm: "本当にログアウトしますか？" }, class: 'nav-link' %>
-        <%= button_to 'sign_id', new_user_session_path %>
+        <% if current_user.present? %>
+          <%= link_to current_user.name, user_path(current_user) %>
+        <% else %>
+          <%= button_to 'sign_id', new_user_session_path %>
+        <% end %>
       </div>
     </div>
   </nav>
