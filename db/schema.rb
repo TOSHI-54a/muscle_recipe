@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_28_160358) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_01_194914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_160358) do
     t.bigint "user_id"
     t.string "query", null: false
     t.datetime "search_time", null: false
-    t.json "response_data"
+    t.jsonb "response_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_search_recipes_on_user_id"
