@@ -5,11 +5,11 @@
   <ul>
     <% @saved_recipes.each do |recipe| %>
       <% if recipe.response_data.present? && recipe.response_data["recipe"].present? %>
-        <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <%= link_to search_path(recipe.id), class: "block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do %>
 
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><strong><%= recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h5>
           <p class="font-normal text-gray-700 dark:text-gray-400"><%= recipe.response_data["recipe"]["description"] || "説明なし" %></p>
-        </a>
+        <% end %>
       <% else %>
         <li>レシピデータがありません</li>
       <% end %>
