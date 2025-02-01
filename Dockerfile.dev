@@ -26,6 +26,7 @@ RUN gem install bundler && bundle install
 # package.json と yarn.lock をコピー
 COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile
+RUN yarn add preline
 
 # アプリケーションコードをコピー
 COPY . .

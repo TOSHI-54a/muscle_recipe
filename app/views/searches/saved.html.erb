@@ -5,23 +5,11 @@
   <ul>
     <% @saved_recipes.each do |recipe| %>
       <% if recipe.response_data.present? && recipe.response_data["recipe"].present? %>
-        <li>
-          <p><strong>始まり</strong></p>
-          <h1><strong><%= recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h1>
-          <p>説明文：<%= recipe.response_data["recipe"]["description"] || "説明なし" %></p>
-          <p><strong>材料:</strong></p>
-          <ul>
-            <% recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
-              <li><%= ingredient %></li>
-            <% end %>
-          </ul>
-          <p><strong>作り方:</strong></p>
-          <ol>
-            <% recipe.response_data["recipe"]["steps"]&.each do |step| %>
-              <li><%= step %></li>
-            <% end %>
-          </ol>
-        </li>
+        <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><strong><%= recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h5>
+          <p class="font-normal text-gray-700 dark:text-gray-400"><%= recipe.response_data["recipe"]["description"] || "説明なし" %></p>
+        </a>
       <% else %>
         <li>レシピデータがありません</li>
       <% end %>
