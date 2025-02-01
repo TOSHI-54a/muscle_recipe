@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   before_action :check_search_limit, only: :create
+  before_action :set_show, only: :show
   skip_before_action :authenticate_user!
 
   def new
@@ -44,6 +45,15 @@ class SearchesController < ApplicationController
     @saved_recipes = current_user.search_recipes.order(created_at: :desc)
   end
 
+  def destroy
+    if @search_recipe.destroy!
+      redirect_to saved_searches_path, success: "削除成功！"
+    else
+      render :saved, status: :unprocessable_entity
+    end
+  end
+
+
   private
 
   def check_search_limit
@@ -70,5 +80,9 @@ class SearchesController < ApplicationController
       available: [ :name, :amount ],  # available を ingredients から独立
       preferences: [ :goal, :calorie_and_pfc ]
     ).to_h
+  end
+
+  def set_show
+    @show_recipe = SearchRecipe.find(params[:id])
   end
 end
