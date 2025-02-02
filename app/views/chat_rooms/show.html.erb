@@ -1,0 +1,16 @@
+<input type="hidden" id="chat-room-id" value="<%= @chat_room.id %>">
+<div class="max-w-md mx-auto bg-white shadow-md rounded-md p-4">
+  <h2 class="text-xl font-semibold">Chat Room</h2>
+  <div id="messages" class="border p-3 h-64 overflow-y-auto">
+    <% @messages.each do |message| %>
+      <div class="p-2 bg-gray-100 rounded-md my-1">
+        <strong><%= message.user.name %>:</strong> <%= message.content %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="mt-2 flex">
+    <input type="text" id="message-input" class="border p-2 w-full rounded-l-md" placeholder="Type a message...">
+    <button id="send-button" class="bg-blue-500 text-white px-4 py-2 rounded-r-md">Send</button>
+  </div>
+</div>
