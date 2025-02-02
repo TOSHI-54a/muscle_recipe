@@ -2,4 +2,4 @@
 import "@hotwired/turbo"; // Turbo を読み込む
 import "./controllers"; // Stimulus コントローラーを読み込む
 
-console.log("Rails application initialized.");
+console.log("Rails application initialized.");import "./channels"
