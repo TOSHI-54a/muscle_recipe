@@ -28,11 +28,11 @@ COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile
 RUN yarn add preline
 
-# アプリケーションコードをコピー
-COPY . .
-
 # フロントエンドのビルド
 RUN yarn build
+
+# アプリケーションコードをコピー
+COPY . .
 
 # サーバー起動
 CMD ["rails", "server", "-b", "0.0.0.0"]

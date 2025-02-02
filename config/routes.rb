@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "messages/create"
   get "search/create"
   devise_for :users, skip: [ :registrations ]
   resources :users
