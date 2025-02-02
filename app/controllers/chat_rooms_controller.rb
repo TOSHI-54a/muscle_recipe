@@ -26,5 +26,4 @@ class ChatRoomsController < ApplicationController
         chat_room.users << User.where(id: params[:user_id])
         redirect_to chat_room_path(chat_room)
     end
-
 end

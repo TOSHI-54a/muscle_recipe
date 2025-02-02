@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :chat_rooms, only: %i[index show create] do
-    resources :messages, only: [:create]
+    resources :messages, only: [ :create ]
 
     collection do
       post :create_private
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   # ActionCable WebSocketのエンドポイント
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => "/cable"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
