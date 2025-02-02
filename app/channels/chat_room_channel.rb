@@ -2,6 +2,7 @@ class ChatRoomChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     chat_room = ChatRoom.find(params[:room_id])
+    # チャットルームごとに WebSocket ストリームを作成
     stream_from "chat_room_#{chat_room.id}"
   end
 
