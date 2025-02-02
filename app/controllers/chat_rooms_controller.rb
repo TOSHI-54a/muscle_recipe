@@ -7,7 +7,7 @@ class ChatRoomsController < ApplicationController
 
     def show
         @chat_room = ChatRoom.find(params[:id])
-        @messages = @chat_room.messages.messages.includes(:user)
+        @messages = @chat_room.messages.includes(:user)
     end
 
     # 1on1
@@ -16,7 +16,7 @@ class ChatRoomsController < ApplicationController
         chat_room = ChatRoom.find_or_create_by(room_type: "private") do |room|
             room.users << [ current_user, other_user ]
         end
-        redirect_to chat_room_path(chat_room)
+        redirect_to chat_rooms_path(chat_room)
     end
 
     # グループ
@@ -24,6 +24,6 @@ class ChatRoomsController < ApplicationController
         chat_room = ChatRoom.create!(room_type: "group")
         chat_room.users << current_user
         chat_room.users << User.where(id: params[:user_id])
-        redirect_to chat_room_path(chat_room)
+        redirect_to chat_rooms_path(chat_room)
     end
 end

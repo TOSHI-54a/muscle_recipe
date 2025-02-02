@@ -1,0 +1,10 @@
+<p>index</p>
+<h1>Chat Rooms</h1>
+
+<ul>
+  <% @chat_rooms.each do |chat_room| %>
+    <li>
+      <%= link_to "Chat Room ##{chat_room.id}", chat_room_path(chat_room) %>
+    </li>
+  <% end %>
+</ul>
