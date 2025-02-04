@@ -13,6 +13,7 @@ const createChatRoomChannel = (roomId) => {
             <strong>${data.user}:</strong> ${data.message}
           </div>`
         );
+        scrollToBottom();
       }
     },
 
@@ -41,6 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+});
+
+const scrollToBottom = () => {
+  const messagesContainer = document.getElementById("messages");
+  if (messagesContainer) {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  scrollToBottom();
 });
 
 // consumer.subscriptions.create("ChatRoomChannel", {
