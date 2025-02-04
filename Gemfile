@@ -69,4 +69,4 @@ end
 gem "tailwindcss-rails", "~> 3.3"
 gem "ransack"
 
-gem "dockerfile-rails", ">= 1.7", :group => :development
+gem "dockerfile-rails", ">= 1.7", group: :development

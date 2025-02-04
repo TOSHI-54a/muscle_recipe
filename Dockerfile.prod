@@ -5,11 +5,15 @@ FROM ruby:3.2.2
 
 # 必要なライブラリをインストール
 RUN apt-get update -qq && apt-get install -y \
-    nodejs \
-    npm \
+    curl \
     postgresql-client \
     libpq-dev \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
+
+# Node.js のバージョンを明示
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
 
 # 最新版の Yarn をインストール
 RUN npm install -g yarn@latest
@@ -21,27 +25,25 @@ WORKDIR /muscle_recipe
 ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT=true
 ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 
 # Gemfile をコピーして依存関係をインストール
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --without development test
+RUN gem install bundler -v 2.4.22 && bundle install --without development test
 
 # package.json と yarn.lock をコピーし、依存関係をインストール
 COPY package.json yarn.lock ./
-RUN yarn install --pure-lockfile
+RUN yarn install --frozen-lockfile
 
 # アプリケーションコードをコピー
 COPY . .
+RUN yarn build
 
 # アセットのプリコンパイル
-RUN bundle exec rails assets:precompile
-
-# データベースのマイグレーション（Fly.io のデプロイ時には外す）
-# RUN bundle exec rails db:migrate
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # ポート設定
 EXPOSE 3000
 
 # サーバー起動
-CMD ["rails", "server", "-b", "0.0.0.0"]
-
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
