@@ -1,8 +1,11 @@
-import consumer from "./consumer"
+import consumer from "./consumer";
+
+console.log("Consumer object:", consumer);
 
 const createChatRoomChannel = (roomId) => {
-  return consumer,subscriptions.create({ channel: "ChatRoomChannel", room_id: roomId }, {
+  return consumer.subscriptions.create({ channel: "ChatRoomChannel", room_id: roomId }, {
     received(data) {
+      console.log("📩 New message received:", data); // デバッグ用
       const messagesContainer = document.getElementById("messages");
       if (messagesContainer) {
         messagesContainer.insertAdjacentHTML("beforeend",
@@ -14,6 +17,7 @@ const createChatRoomChannel = (roomId) => {
     },
 
     sendMessage(message) {
+      console.log("Sending message:", message);
       this.perform("receive", { message, room_id: roomId });
     }
   });
@@ -22,6 +26,7 @@ const createChatRoomChannel = (roomId) => {
 document.addEventListener("DOMContentLoaded", () => {
   const chatRoomId = document.getElementById("chat-room-id")?.value;
   if (chatRoomId) {
+    console.log(`Intitalizing ChatRoomChannel for room ID: ${chatRoomId}`);
     const chatChannel = createChatRoomChannel(chatRoomId);
     const messageInput = document.getElementById("message-input");
     const sendButton = document.getElementById("send-button");
