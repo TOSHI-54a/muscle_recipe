@@ -1,5 +1,5 @@
 require "httparty"
-require "dotenv/load"
+require "dotenv/load" unless Rails.env.production?
 
 class ChatGptService
     API_URL = "https://api.openai.com/v1/chat/completions"

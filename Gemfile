@@ -35,6 +35,7 @@ gem "redis"
 gem "cssbundling-rails"
 gem "foreman"
 gem "httparty"
+gem "dotenv-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -49,7 +50,6 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
-  gem "dotenv-rails"
 end
 
 group :development do
@@ -68,3 +68,5 @@ end
 
 gem "tailwindcss-rails", "~> 3.3"
 gem "ransack"
+
+gem "dockerfile-rails", ">= 1.7", group: :development
