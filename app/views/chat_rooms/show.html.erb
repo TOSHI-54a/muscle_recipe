@@ -1,9 +1,11 @@
 <input type="hidden" id="chat-room-id" value="<%= @chat_room.id %>">
+<input type="hidden" id="current-user-id" value="<%= current_user.id %>">
 <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-4">
   <h2 class="text-xl font-semibold">Chat Room</h2>
   <div id="messages" class="border p-3 h-64 overflow-y-auto">
     <% @messages.each do |message| %>
-      <div class="p-2 bg-gray-100 rounded-md my-1">
+      <% is_current_user = message.user_id == current_user.id %>
+      <div class="p-2 <%= is_current_user ? 'bg-green-200 text:rigth' : 'bg-gray-100 text-left' %> rounded-md my-1">
         <strong><%= message.user.name %>:</strong> <%= message.content %>
       </div>
     <% end %>

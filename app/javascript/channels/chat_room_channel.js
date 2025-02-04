@@ -8,6 +8,9 @@ const createChatRoomChannel = (roomId) => {
       console.log("📩 New message received:", data); // デバッグ用
       const messagesContainer = document.getElementById("messages");
       if (messagesContainer) {
+        const currentUserId = document.getElementById("messages");
+        const isCurrentUser = data.user_id == currentUserId;
+        const messageClass = isCurrentUser ? "bg-green-200 text-right" : "bg-gray-100 text-left";
         messagesContainer.insertAdjacentHTML("beforeend",
           `<div class="p-2 bg-gray-100 rounded-md my-1">
             <strong>${data.user}:</strong> ${data.message}
