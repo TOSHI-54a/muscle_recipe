@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get :saved
     end
   end
-  resources :chat_rooms, only: %i[index show create] do
+  resources :chat_rooms, only: %i[index show create destroy] do
     resources :messages, only: [ :create ]
 
     collection do
