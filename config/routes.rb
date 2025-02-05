@@ -10,11 +10,6 @@ Rails.application.routes.draw do
   end
   resources :chat_rooms, only: %i[index show create destroy] do
     resources :messages, only: [ :create ]
-
-    collection do
-      post :create_private
-      post :create_group
-    end
   end
 
   # ActionCable WebSocketのエンドポイント

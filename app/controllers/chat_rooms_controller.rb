@@ -6,7 +6,29 @@ class ChatRoomsController < ApplicationController
     end
 
     def create
-        @chat_room = ChatRoom.new(chatRoom_params)
+        room_type = params[:room_type]
+        user_id = params[:user_id]
+        chat_name = params[:chat_name]
+
+        if room_type == "private" && user_id.present?
+            other_user = User.find_by(id: user_id)
+            if other_user
+                chat_room = ChatRoom.find_or_create_by(room_type: "private") do |room|
+                    room.users << [ current_user, other_user ]
+                end
+            else
+                flash[:alert] = "User not found"
+                return redirect_to chat_rooms_path
+            end
+        elsif room_type == "group"
+            chat_room = ChatRoom.create!(room_type: "group", name: chat_name.presence || "Unnamed Group")
+            chat_room.users << current_user
+        else
+            flash[:alert] = "部屋の選択が無効です"
+            return redirect_to chat_rooms_path
+        end
+
+        redirect_to chat_room_path(chat_room)
     end
 
     def index

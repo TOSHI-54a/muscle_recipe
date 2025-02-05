@@ -4,4 +4,5 @@ class ChatRoom < ApplicationRecord
     has_many :messages, dependent: :destroy
 
     validates :room_type, inclusion: { in: %w[private group] }
+    validates :name, presence: true, if: -> { room_type == "group" }
 end

@@ -1,10 +1,54 @@
-<p>index</p>
-<h1>Chat Rooms</h1>
+<h2 class="text-xl font-semibold mb-4">Create a Chat Room</h2>
 
-<ul>
+<%= form_with url: chat_rooms_path, method: :post, local: true do |f| %>
+  <!-- プルダウンで `private` or `group` を選択 -->
+  <div>
+    <label for="room_type">Select Room Type:</label>
+    <select name="room_type" id="room_type" class="border p-2 rounded-md w-full max-w-lg">
+      <option value="private">1-on-1 Chat</option>
+      <option value="group">Group Chat</option>
+    </select>
+  </div>
+
+  <!-- グループチャット名の入力欄 (グループの場合のみ有効) -->
+  <div id="group-name-field" class="mt-2 hidden">
+    <label for="chat_name">Group Chat Name:</label>
+    <input type="text" name="chat_name" id="chat_name" class="border p-2 rounded-md w-full" placeholder="Enter group name">
+  </div>
+
+  <!-- 参加ユーザーの選択 (1on1なら1人、グループなら0人以上) -->
+  <div id="one-on-one-field" class="mt-2">
+    <label for="users">Enter User ID:</label>
+    <input type="text" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="Enter user ID">
+  </div>
+
+  <%= f.submit "Create Chat", class: "bg-blue-500 text-white px-4 py-2 rounded-md mt-2" %>
+<% end %>
+
+<!-- チャットルーム一覧 -->
+<h3 class="text-lg font-semibold mt-6">Your Chat Rooms</h3>
+<ul class="mt-2">
   <% @chat_rooms.each do |chat_room| %>
-    <li>
-      <%= link_to "Chat Room ##{chat_room.id}", chat_room_path(chat_room) %>
+    <li class="p-2 border rounded-md my-1">
+      <%= link_to (chat_room.name.present? ? chat_room.name : chat_room.room_type.capitalize), chat_room_path(chat_room), class: "text-blue-500" %>
     </li>
   <% end %>
 </ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const roomTypeSelect = document.getElementById("room_type");
+    const groupNameField = document.getElementById("group-name-field");
+    const oneOnoneSelectField = document.getElementById("one-on-one-field");
+
+    roomTypeSelect.addEventListener("change", function () {
+      if (this.value === "group") {
+        groupNameField.classList.remove("hidden"); // グループのときだけ表示
+        oneOnoneSelectField.classList.add("hidden");
+      } else {
+        groupNameField.classList.add("hidden");
+        oneOnoneSelectField.classList.remove("hidden");
+      }
+    });
+  });
+</script>
