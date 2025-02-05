@@ -32,7 +32,8 @@ class ChatRoomsController < ApplicationController
     end
 
     def index
-        @chat_rooms = current_user.chat_rooms
+        @chat_rooms = current_user.chat_rooms.includes(:users)
+        @open_chat_rooms = ChatRoom.where(room_type: "group")
     end
 
     def show
