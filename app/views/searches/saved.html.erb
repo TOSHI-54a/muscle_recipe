@@ -1,3 +1,4 @@
+<div class="space-y-4 flex flex-col items-center">
 <h1>保存済みレシピ一覧</h1>
 <p>保存されたレシピ数：<%= @saved_recipes.count %></p>
 <%= render 'shared/search', q: @q, url: saved_searches_path %>
@@ -19,3 +20,4 @@
 <% else %>
   <p>保存されたレシピはありません。</p>
 <% end %>
+</div>

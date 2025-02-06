@@ -3,8 +3,8 @@
 <%= form_with url: chat_rooms_path, method: :post, local: true do |f| %>
   <!-- プルダウンで `private` or `group` を選択 -->
   <div>
-    <label for="room_type">Select Room Type:</label>
-    <select name="room_type" id="room_type" class="border p-2 rounded-md w-full max-w-lg">
+    <label for="room_type" class="block mb-2 text-sm font-medium text-gray-900">Select Room Type:</label>
+    <select name="room_type" id="room_type" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500">
       <option value="private">1-on-1 Chat</option>
       <option value="group">Group Chat</option>
     </select>
@@ -18,7 +18,7 @@
 
   <!-- 参加ユーザーの選択 (1on1なら1人、グループなら0人以上) -->
   <div id="one-on-one-field" class="mt-2">
-    <label for="users">Enter User ID:</label>
+    <label for="user_id">Enter User ID:</label>
     <input type="text" name="user_id" id="user_id" class="border p-2 rounded-md w-full" placeholder="Enter user ID">
   </div>
 
