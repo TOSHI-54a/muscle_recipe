@@ -1,3 +1,4 @@
+<div>
 <h1>レシピ検索フォーム</h1>
 
 <%= form_with url: searches_path, model: current_user, method: :post, local: true, data: { turbo: false } do |f| %>
@@ -75,3 +76,4 @@
     <%= f.submit "レシピを検索する" %>
   </div>
 <% end %>
+</div>
