@@ -1,9 +1,9 @@
-<h1>レシピ詳細:<%= @show_recipe.response_data["recipe"]["title"] %></h1>
+<div>
+<h1>レシピ詳細</h1>
     <% if @show_recipe.response_data.present? && @show_recipe.response_data["recipe"].present? %>
-      <li>
-        <p><strong>始まり</strong></p>
+      <ul>
         <h1><strong><%= @show_recipe.response_data["recipe"]["title"] || "タイトルなし" %></strong></h1>
-        <p>説明文：<%= @show_recipe.response_data["recipe"]["description"] || "説明なし" %></p>
+        <p><%= @show_recipe.response_data["recipe"]["description"] || "説明なし" %></p>
         <p><strong>材料:</strong></p>
         <ul>
           <% @show_recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
@@ -16,8 +16,9 @@
             <li><%= step %></li>
           <% end %>
         </ol>
-      </li>
+      </ul>
     <% else %>
       <li>レシピデータがありません</li>
     <% end %>
+</div>
 

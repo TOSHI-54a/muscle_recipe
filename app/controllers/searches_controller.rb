@@ -31,7 +31,7 @@ class SearchesController < ApplicationController
     Rails.logger.debug "れすぽお:#{recipe_response}"
 
     @recommendation = recipe_response
-    render :index
+    render :show
     # render json: { recipe: recipe_response }, status: ok
   rescue => e
     Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"
