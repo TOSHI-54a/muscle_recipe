@@ -70,3 +70,5 @@ gem "tailwindcss-rails", "~> 3.3"
 gem "ransack"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
