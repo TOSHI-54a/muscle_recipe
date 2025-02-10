@@ -279,6 +279,10 @@ Devise.setup do |config|
   }
   config.omniauth_path_prefix = "/users/auth"
 
+  OmniAuth.config.allowed_request_methods = [ :post, :get ]
+  OmniAuth.config.silence_get_warning = true
+
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
