@@ -2,12 +2,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :verify_authenticity_token, raise: false
 
     def google_oauth2
+        binding.pry
         Rails.logger.debug "OmniAuth Params: #{request.env['omniauth.params'].inspect}"
         Rails.logger.debug "CSRF Token : #{params[:g_csrf_token]}"
         Rails.logger.debug "CSRF Token from params: #{params[:g_csrf_token]}"
         Rails.logger.debug "CSRF Token from cookies: #{cookies['g_csrf_token']}"
         # 手動でstateを確認
         if session[:omniauth_state] != params[:state]
+            Rails.logger.debug "セッション: #{session[:omniauth_state]}"
+            Rails.logger.debug "パラむず: #{params[:state]}"
+            Rails.logger.debug "ダメでした"
             redirect_to root_path, alert: "CSRF検証に失敗しました。"
             return
         end
@@ -34,6 +38,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         Rails.logger.debug "CSRF Token : #{params[:g_csrf_token]}"
         Rails.logger.debug "CSRF Token from cookies: #{cookies['g_csrf_token']}"
         redirect_to root_path, alert: "Authentication faild, please try again."
+    end
+
+    def passthru
+        Rails.logger.debug "Passthru method was called!"
+        super
     end
 
     private

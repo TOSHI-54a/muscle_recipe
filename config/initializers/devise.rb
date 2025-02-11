@@ -281,8 +281,6 @@ Devise.setup do |config|
   config.omniauth_path_prefix = "/users/auth"
 
   OmniAuth.config.allowed_request_methods = [:post, :get]
-  OmniAuth.config.silence_get_warning = true
-  OmniAuth.config.request_validation_phase = nil
 
 
   # ==> Warden configuration
