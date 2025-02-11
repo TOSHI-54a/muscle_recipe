@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# require 'omniauth-rails_csrf_protection'
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -275,12 +275,14 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
     scope: "userinfo.email, userinfo.profile",
     prompt: "select_account",
-    redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback"
+    redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback",
+    provider_ignores_state: true
   }
   config.omniauth_path_prefix = "/users/auth"
 
-  OmniAuth.config.allowed_request_methods = [ :post, :get ]
+  OmniAuth.config.allowed_request_methods = [:post, :get]
   OmniAuth.config.silence_get_warning = true
+  OmniAuth.config.request_validation_phase = nil
 
 
   # ==> Warden configuration
