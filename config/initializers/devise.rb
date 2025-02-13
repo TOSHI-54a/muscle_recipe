@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # require 'omniauth-rails_csrf_protection'
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
@@ -280,7 +281,7 @@ Devise.setup do |config|
   }
   config.omniauth_path_prefix = "/users/auth"
 
-  OmniAuth.config.allowed_request_methods = [:post, :get]
+  OmniAuth.config.allowed_request_methods = [ :post, :get ]
 
 
   # ==> Warden configuration
