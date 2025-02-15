@@ -1,5 +1,5 @@
 import consumer from "./consumer";
-alert("読み込み成功!!!");
+alert("読み込み成功!?!");
 console.log("Consumer object:", consumer);
 
 const createChatRoomChannel = (roomId) => {
@@ -9,7 +9,12 @@ const createChatRoomChannel = (roomId) => {
       const messagesContainer = document.getElementById("messages");
       if (messagesContainer) {
         const currentUserId = document.getElementById("messages");
+        console.log("ユーザー:#{currentUserId}")
+        console.log("データユーザー:#{data.user_id}")
         const isCurrentUser = data.user_id == currentUserId;
+        if (isCurrentUser && document.querySelector(`[data-message-id="${data.message_id}"]`)) {
+          return;
+        }
         const messageClass = isCurrentUser ? "bg-green-200 text-right" : "bg-gray-100 text-left";
         messagesContainer.insertAdjacentHTML(
           "beforeend",
