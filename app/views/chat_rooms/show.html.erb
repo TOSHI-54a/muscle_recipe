@@ -2,11 +2,11 @@
 <input type="hidden" id="current-user-id" value="<%= current_user.id %>">
 <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-4">
   <h2 class="text-xl font-semibold"><%= @chat_room.name || "Chat Room" %></h2>
-  <div id="messages" class="border p-3 h-64 overflow-y-auto">
+  <div id="messages" class="border p-3 h-96 overflow-y-auto space-y-2">
     <% @messages.each do |message| %>
       <% is_current_user = message.user_id == current_user.id %>
       <div class="flex <%= is_current_user ? 'justify-end' : 'justify-start' %>">
-        <div class="p-2 w-[70%] <%= is_current_user ? 'bg-green-200 text-right' : 'bg-gray-100 text-left' %> rounded-md my-1">
+        <div class="p-2 min-h-[40px] w-[70%] <%= is_current_user ? 'bg-green-200 text-right' : 'bg-gray-200 text-left' %> rounded-md my-1">
           <strong><%= message.user.name %>:</strong> <%= message.content %>
         </div>
       </div>
