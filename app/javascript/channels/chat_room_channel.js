@@ -1,20 +1,24 @@
 import consumer from "./consumer";
-alert("読み込み成功!!!");
+alert("読み込み成功!?!");
 console.log("Consumer object:", consumer);
 
 const createChatRoomChannel = (roomId) => {
   return consumer.subscriptions.create({ channel: "ChatRoomChannel", room_id: roomId }, {
     received(data) {
-      console.log("📩 New message received:", data); // デバッグ用
+      console.log("📩 New message received:", data);
       const messagesContainer = document.getElementById("messages");
       if (messagesContainer) {
-        const currentUserId = document.getElementById("messages");
+        const currentUserId = document.getElementById("current-user-id")?.value;
         const isCurrentUser = data.user_id == currentUserId;
-        const messageClass = isCurrentUser ? "bg-green-200 text-right" : "bg-gray-100 text-left";
+        const alignmentClass = isCurrentUser ? "justify-end" : "justify-start";
+        const bgColorClass = isCurrentUser ? "bg-green-200 text-right" : "bg-gray-100 text-left";
+
         messagesContainer.insertAdjacentHTML(
           "beforeend",
-          `<div class="p-2 bg-gray-100 rounded-md my-1">
-            <strong>${data.user}:</strong> ${data.message}
+          `<div class="flex ${alignmentClass}">
+            <div class="p-2 w-[70%] ${bgColorClass} rounded-md my-1">
+              <strong>${data.user}:</strong> ${data.message}
+            </div>
           </div>`
         );
         scrollToBottom();
@@ -24,27 +28,17 @@ const createChatRoomChannel = (roomId) => {
     sendMessage(message) {
       console.log("Sending message:", message);
       this.perform("receive", { message, room_id: roomId });
-
-      const messagesContainer = document.getElementById("messages");
-      const currentUserId = document.getElementById("current-user-id")?.value;
-      if (messagesContainer) {
-        messagesContainer.insertAdjacentHTML(
-          "beforeend",
-          `<div class="p-2 bg-green-200 text-right rounded-md my-1">
-            <strong>あなた:</strong> ${message}
-          </div>`
-        );
-        scrollToBottom();
-      }
     }
   });
 };
 
 const initializeChat = () => {
   const chatRoomId = document.getElementById("chat-room-id")?.value;
-  if (chatRoomId) {
+  const currentUserId = document.getElementById("current-user-id")?.value;
+
+  if (chatRoomId && currentUserId) {
     console.log(`Initializing ChatRoomChannel for room ID: ${chatRoomId}`);
-    const chatChannel = createChatRoomChannel(chatRoomId);
+    const chatChannel = createChatRoomChannel(chatRoomId, currentUserId);
     const messageInput = document.getElementById("message-input");
     const sendButton = document.getElementById("send-button");
 
@@ -72,6 +66,8 @@ document.addEventListener("turbo:load", () => {
   initializeChat();
   scrollToBottom();
 });
+
+
 // consumer.subscriptions.create("ChatRoomChannel", {
 //   connected() {
 //     // Called when the subscription is ready for use on the server
