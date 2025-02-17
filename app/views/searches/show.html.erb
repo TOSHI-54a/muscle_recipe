@@ -22,5 +22,9 @@
     <% else %>
       <li>レシピデータがありません</li>
     <% end %>
+    <%= link_to "一覧に戻る", saved_searches_path %>
+    <% if current_user.present? %>
+      <%= button_to "削除", search_path(@show_recipe), method: :delete, data: { turbo_confirm: '削除しますか？' } %>
+    <% end %>
 </div>
 
