@@ -21,17 +21,18 @@ class SearchesController < ApplicationController
 
     recipe_response = ChatGptService.new.fetch_recipe(prompt)
     Rails.logger.debug "ChatGPT API Response: #{recipe_response.inspect}"
-    SearchRecipe.create!(
+    @show_recipe = SearchRecipe.create!(
       user: current_user,
       query: prompt,
       search_time: Time.current,
       response_data: recipe_response
     )
 
-    Rails.logger.debug "れすぽお:#{recipe_response}"
+    Rails.logger.debug "保存後のSearchRecipe: #{@show_recipe.inspect}"
+    Rails.logger.debug "保存後のresponse_data: #{@show_recipe.response_data.inspect}"
 
-    @recommendation = recipe_response
-    render :show
+    # @recommendation = recipe_response
+    redirect_to search_path(@show_recipe)
     # render json: { recipe: recipe_response }, status: ok
   rescue => e
     Rails.logger.debug "Recipe response is empty or invalid: #{@recommendations.inspect}"

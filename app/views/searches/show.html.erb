@@ -7,7 +7,9 @@
         <p><strong>材料:</strong></p>
         <ul>
           <% @show_recipe.response_data["recipe"]["ingredients"]&.each do |ingredient| %>
-            <li><%= ingredient %></li>
+            <ul>
+              <li><%= ingredient['name'] %>:<%= ingredient['amount'] %></li>
+            </ul>
           <% end %>
         </ul>
         <p><strong>作り方:</strong></p>
