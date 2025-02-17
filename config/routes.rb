@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "search/create"
   devise_for :users, skip: [ :registrations ], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: %i[show new edit create update destroy]
-  resources :searches, only: %i[new create index show] do
+  resources :searches, only: %i[new create index show destroy] do
     collection do
       get :saved
     end

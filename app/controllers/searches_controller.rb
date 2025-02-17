@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   before_action :check_search_limit, only: :create
-  before_action :set_show, only: :show
+  before_action :set_show, only: %i[show destroy]
   skip_before_action :authenticate_user!
 
   def new
@@ -49,8 +49,9 @@ class SearchesController < ApplicationController
   end
 
   def destroy
-    if @search_recipe.destroy!
-      redirect_to saved_searches_path, success: "削除成功！"
+    if @show_recipe.destroy!
+      flash[:success] = "削除成功!"
+      redirect_to saved_searches_path, success: "削除成功！!!!"
     else
       render :saved, status: :unprocessable_entity
     end
