@@ -5,4 +5,12 @@ class ChatRoom < ApplicationRecord
 
     validates :room_type, inclusion: { in: %w[private group] }
     validates :name, presence: true, if: -> { room_type == "group" }
+
+    def other_user(current_user)
+        users.where.not(id: current_user.id).first
+    end
+
+    def other_users(chat_room)
+        chat_room.users.where.not(id: current_user.id)
+    end
 end
