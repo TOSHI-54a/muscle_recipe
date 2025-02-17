@@ -1,7 +1,13 @@
 <input type="hidden" id="chat-room-id" value="<%= @chat_room.id %>">
 <input type="hidden" id="current-user-id" value="<%= current_user.id %>">
 <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-4">
-  <h2 class="text-xl font-semibold"><%= @chat_room.name || "Chat Room" %></h2>
+  <h2 class="text-xl font-semibold">
+    <% if @chat_room.room_type == 'private' %>
+      <%= @chat_room.other_user(current_user).name %> さんとのチャット
+    <% else %>
+      <%= @chat_room.name || "Chat Room" %>
+    <% end %>
+  </h2>
   <div id="messages" class="border p-3 h-96 overflow-y-auto space-y-2">
     <% @messages.each do |message| %>
       <% is_current_user = message.user_id == current_user.id %>
