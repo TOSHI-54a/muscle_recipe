@@ -33,7 +33,7 @@ gem "bootsnap", require: false
 gem "devise", "~> 4.9"
 gem "redis", "~> 5.4"
 gem "cssbundling-rails", "~> 1.4"
-gem "foreman", "~> 0.88"
+gem "foreman", "~> 0.90"
 gem "httparty", "~> 0.23"
 gem "dotenv-rails", "~> 3.1"
 gem "rails-i18n"
