@@ -146,7 +146,7 @@ jobs:
         # uses: k1LoW/octocov-action@v0
 
       - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: screenshots
